@@ -1,5 +1,67 @@
 {
+  "author": "",
+  "ava": {
+    "babel": {
+      "presets": []
+    },
+    "concurrency": 5,
+    "failFast": false,
+    "files": [
+      "dist/tests/**/*.js"
+    ],
+    "timeout": "1m"
+  },
+  "description": "rule-description",
+  "devDependencies": {
+    "@sonarwhal/sonar": "0.8.1",
+    "@types/debug": "0.0.30",
+    "@types/node": "^8.0.29",
+    "async-retry": "^1.1.0",
+    "ava": "^0.22.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-istanbul": "^4.1.4",
+    "babel-preset-es2017": "^6.22.0",
+    "babel-register": "^6.26.0",
+    "cpx": "^1.5.0",
+    "eslint": "^4.7.2",
+    "eslint-plugin-markdown": "^1.0.0-beta.6",
+    "eslint-plugin-typescript": "^0.7.0",
+    "express": "^4.15.3",
+    "markdownlint-cli": "^0.3.1",
+    "npm-run-all": "^4.1.1",
+    "on-headers": "^1.0.1",
+    "rimraf": "^2.6.2",
+    "typescript": "^2.5.2",
+    "typescript-eslint-parser": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "sonarwhal",
+    "sonar",
+    "rule"
+  ],
+  "license": "Apache-2.0",
+  "main": "dist/src/rule-template.js",
   "name": "@sonarwhal/rule-template",
+  "scripts": {
+    "build": "npm run clean && npm-run-all build:*",
+    "build:assets": "cpx \"./{src,tests}/**/{!(*.ts),.!(ts)}\" dist",
+    "build:ts": "tsc --outDir dist",
+    "clean": "rimraf dist",
+    "test": "npm run lint && npm run build && ava",
+    "lint": "npm-run-all lint:*",
+    "lint:js": "eslint --ext md --ext ts --ignore-pattern dist .",
+    "lint:md": "markdownlint README.md",
+    "watch:ts": "npm run build:ts -- --watch"
+  },
+  "peerDependencies": {
+    "@sonarwhal/sonar": "0.8.1"
+  },
   "private": true,
   "repository": "sonarwhal/rule-template",
   "version": "0.1.0"
